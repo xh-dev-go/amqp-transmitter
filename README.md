@@ -2,7 +2,7 @@
 
 ## install
 ```
-go install github.com/xh-dev-go/amqp-transmitter
+go install github.com/xh-dev-go/amqp-transmitter@latest
 ```
 
 ## build
