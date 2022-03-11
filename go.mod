@@ -1,4 +1,4 @@
-module amqp-transmitter
+module github.com/xh-dev-go/amqp-transmitter
 
 go 1.17
 
