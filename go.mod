@@ -1,4 +1,4 @@
-module rabbitmq-transmitter
+module amqp-transmitter
 
 go 1.17
 
