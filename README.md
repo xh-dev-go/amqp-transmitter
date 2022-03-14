@@ -21,6 +21,6 @@ $ ./amqp-transmitter
         show application version
 
 # Demo
-./amqp-transmitter --amqp-url {url} --queue-name {queue name}
+echo "[message]$(date)" | ./amqp-transmitter --amqp-url {url} --queue-name {queue name}
 ```
 
