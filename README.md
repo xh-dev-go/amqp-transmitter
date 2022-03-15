@@ -2,7 +2,7 @@
 
 ## install
 ```
-go install github.com/xh-dev-go/amqp-transmitter
+go install github.com/xh-dev-go/amqp-transmitter@latest
 ```
 
 ## build
@@ -22,6 +22,6 @@ $ ./amqp-transmitter
   -version
         show application version
 # Demo
-./amqp-transmitter --amqp-url {url} --exchange-name {exchange-name} --queue-name {queue name}
+echo "[message]$(date)" | ./amqp-transmitter --amqp-url {url} --exchange-name {exchange-name} --queue-name {queue name}
 ```
 
