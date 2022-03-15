@@ -15,12 +15,13 @@ go build
 $ ./amqp-transmitter
   -amqp-url string
         The connection string of amqp
+  -exchange-name string
+        The name of the exchange
   -queue-name string
-        The name of the queue
+        Tme name of the queue or routing key if exchange-name not empty
   -version
         show application version
-
 # Demo
-./amqp-transmitter --amqp-url {url} --queue-name {queue name}
+./amqp-transmitter --amqp-url {url} --exchange-name {exchange-name} --queue-name {queue name}
 ```
 

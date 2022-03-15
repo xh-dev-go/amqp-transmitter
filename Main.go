@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"flag"
 	"github.com/streadway/amqp"
 	"github.com/xh-dev-go/xhUtils/flagUtils"
@@ -9,11 +10,20 @@ import (
 	"os"
 )
 
-const VERSION = "1.0.0"
+const VERSION = "1.1.0"
 
+var NoExchangeOrQueue = errors.New("exchange name and queue name can not be empty at the same time")
+
+func validate(exchangeName, queueName string) error {
+	if exchangeName == "" && queueName == "" {
+		return NoExchangeOrQueue
+	}
+	return nil
+}
 func main() {
 	url := flagString.New("amqp-url", "The connection string of amqp").BindCmd()
-	queueName := flagString.New("queue-name", "The name of the queue").BindCmd()
+	exchangeName := flagString.NewDefault("exchange-name", "", "The name of the exchange").BindCmd()
+	queueName := flagString.NewDefault("queue-name", "", "Tme name of the queue or routing key if exchange-name not empty").BindCmd()
 	version := flagUtils.Version().BindCmd()
 
 	if len(os.Args) == 1 {
@@ -22,6 +32,10 @@ func main() {
 	}
 
 	flag.Parse()
+
+	if err := validate(exchangeName.Value(), queueName.Value()); err != nil {
+		panic(err)
+	}
 
 	if version.Value() {
 		println(VERSION)
@@ -44,7 +58,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	err = ch.Publish("", queueName.Value(), false, false, amqp.Publishing{
+	err = ch.Publish(exchangeName.Value(), queueName.Value(), false, false, amqp.Publishing{
 		ContentType: "text/plain",
 		Body:        b,
 	})
